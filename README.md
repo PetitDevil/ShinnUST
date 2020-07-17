@@ -4,14 +4,14 @@ Touch System base on Hokuyo UST-10LX (For Wall and Floor)
 <img src="https://github.com/shinn716/ShinnUST/blob/master/Snipaste_2018-10-21_20-06-16.png" /></a>
 <img src="https://github.com/shinn716/ShinnUST/blob/master/Snipaste_2018-10-21_20-06-40.png" /></a>
   
-## You can change Setting from StreamingAssets
+## You can change Setting from StreamingAssets for UST 10LX
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <URGData>
   <URGStep>
     <StartStep>0</StartStep>
     <EndStep>1080</EndStep>
-    <StepCount360>1400</StepCount360>
+    <StepCount360>1440</StepCount360>
   </URGStep>
 </URGData>
 ```
