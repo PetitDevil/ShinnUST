@@ -9,6 +9,7 @@ public class RaycastDebug : MonoBehaviour {
 
 	void Update () {
 
+		
 		if (enable) {
 
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -17,9 +18,11 @@ public class RaycastDebug : MonoBehaviour {
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.transform.tag == "trigger") {
 					hit.transform.gameObject.SendMessage ("CubeStart");
+					Debug.Log("mouse.position: "+mouse.position);
 				}
 			}
 			mouse.position = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 5));
+			
 		}
 	}
 }

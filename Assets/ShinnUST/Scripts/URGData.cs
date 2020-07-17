@@ -34,6 +34,7 @@ public class URGData : MonoBehaviour
         else if (pathstate == FilePath.RelativeLocation)
         {
             string assets = (Application.streamingAssetsPath + "/UrgData.xml").ToString();
+            Debug.Log("Does the file exist? "+File.Exists(assets)) ;
             LoadFromXml(assets);
             Urg._startstep = xml_startstep;
             Urg._endstep = xml_endstep;

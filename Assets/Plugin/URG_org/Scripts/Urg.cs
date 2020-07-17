@@ -53,7 +53,7 @@ public class Urg : MonoBehaviour
     URGDevice urg;
 
     [SerializeField]
-    string ipAddress = "192.168.0.35";
+    string ipAddress = "192.168.0.10";
 
     [SerializeField]
     int portNumber = 10940;
@@ -114,7 +114,8 @@ public class Urg : MonoBehaviour
     }
 
     bool drawMesh = true;
-    public bool DrawMesh {
+    public bool DrawMesh
+    {
         get { return drawMesh; }
         set { drawMesh = value; }
     }
@@ -147,7 +148,8 @@ public class Urg : MonoBehaviour
     [Tooltip("選擇'牆'或'地板', 如果為地板, 請將UST Group, Rot x設為90")]
     public Type type;
 
-    public enum Type{
+    public enum Type
+    {
         Wall,
         Floor
     }
@@ -190,47 +192,55 @@ public class Urg : MonoBehaviour
         }
 
     }
-		
+
     void Update()
     {
 
-		if (main.Enable) {
+        if (main.Enable)
+        {
 
-			if(distances.Length==0 && !workOnce){
-				workOnce = true;
-				Reset ();
-				StartCoroutine (ResetFuct (5));
-			}
+            if (distances.Length == 0 && !workOnce)
+            {
+                workOnce = true;
+                Reset();
+                StartCoroutine(ResetFuct(5));
+            }
 
 
-			if (ScriptStart) {
-				if (urg.Distances.Count () == distances.Length) {
-					
-					try {
-						distances = urg.Distances.ToArray ();
-					} catch (Exception e) {
-						Debug.LogException (e, this);
-					}
+            if (ScriptStart)
+            {
+                if (urg.Distances.Count() == distances.Length)
+                {
 
-				}
+                    try
+                    {
+                        distances = urg.Distances.ToArray();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e, this);
+                    }
 
-				UpdateObstacleData ();
-				meshRenderer.enabled = drawMesh;
+                }
 
-				if (drawMesh) {
-					CreateMesh ();
-					ApplyMesh ();
-					UST_POS.transform.position = new Vector3 (PosOffset.x, PosOffset.y, -20);
-				}
-			}
+                UpdateObstacleData();
+                meshRenderer.enabled = drawMesh;
 
-		}
+                if (drawMesh)
+                {
+                    CreateMesh();
+                    ApplyMesh();
+                    UST_POS.transform.position = new Vector3(PosOffset.x, PosOffset.y, -20);
+                }
+            }
+
+        }
     }
 
     void UpdateObstacleData()
     {
-		
-        for ( int i = 0; i < distances.Length; i++)
+
+        for (int i = 0; i < distances.Length; i++)
         {
 
             if (type == Type.Floor)
@@ -239,10 +249,11 @@ public class Urg : MonoBehaviour
                 DetectedObstacles[i] = new Vector4(position.x, position.y, position.z, distances[i]);
 
                 int index = i + 1;
-                if (index> distances.Length-1) 
-                    index = distances.Length-1;
+                if (index > distances.Length - 1)
+                    index = distances.Length - 1;
 
-                if (Mathf.Abs(distances[i] - distances[index]) < 10) {
+                if (Mathf.Abs(distances[i] - distances[index]) < 10)
+                {
 
                     if (position.x > ShinnUSTManager.touchArea_value.x && position.x < ShinnUSTManager.touchArea_value.y)
                         DetectSolution.Add(position + RaycaseOffset);
@@ -257,13 +268,17 @@ public class Urg : MonoBehaviour
                 DetectedObstacles[i] = new Vector4(position.x, position.y, position.z, distances[i]);
 
                 int index = i + 1;
-                if (index > distances.Length-1)
-                    index = distances.Length-1;
+                if (index > distances.Length - 1)
+                    index = distances.Length - 1;
 
                 if (Mathf.Abs(distances[i] - distances[index]) < 20)
                 {
                     if (position.x > ShinnUSTManager.touchArea_value.x && position.x < ShinnUSTManager.touchArea_value.y && position.y < ShinnUSTManager.touchArea_value.z && position.y > ShinnUSTManager.touchArea_value.w)
+                    {
                         DetectSolution.Add(position + RaycaseOffset);
+                        //Debug.Log("add point to detectSolution" + (position + RaycaseOffset));
+                    }
+
                 }
 
             }
@@ -271,24 +286,34 @@ public class Urg : MonoBehaviour
 
         }
 
-        for (int i=0; i<DetectSolution.Count; i++){
+        //Debug.Log("DetectSolution count: " + DetectSolution.Count);
 
-			RaycastHit hit;
-			Vector3 _screenPos = cam.WorldToScreenPoint (DetectSolution [i]);
-			Ray ray = cam.ScreenPointToRay (_screenPos);
-            
+        for (int i = 0; i < DetectSolution.Count; i++)
+        {
+
+            //Debug.Log("DetectSolution " + i + ": " + DetectSolution[i]);
+
+            RaycastHit hit;
+            Vector3 _screenPos = cam.WorldToScreenPoint(DetectSolution[i]);
+            Ray ray = cam.ScreenPointToRay(_screenPos);
+
 
             if (Physics.Raycast(ray, out hit, 100))
-			{
-                if(RaycastDebug)
-    				Debug.DrawLine (cam.transform.position, hit.transform.position, Color.red, .1f, true);
+            {
+                if (RaycastDebug)
+                    Debug.DrawLine(cam.transform.position, hit.transform.position, Color.red, .1f, true);
 
-				if(hit.collider.gameObject.transform.tag=="trigger")
-					hit.transform.gameObject.SendMessage ("CubeStart");
-			
-			}
-		}
-		DetectSolution.Clear ();
+                if (hit.collider.gameObject.transform.tag == "trigger")
+                    hit.transform.gameObject.SendMessage("CubeStart");
+
+                // if (hit.collider.gameObject.name == "toucharea")
+                // {
+                //     Debug.Log("touch point: " + _screenPos);
+                // }
+
+            }
+        }
+        DetectSolution.Clear();
     }
 
     static bool IsValidDistance(long distance)
@@ -311,9 +336,9 @@ public class Urg : MonoBehaviour
 
     Vector3 Index2Position(int index)
     {
-		float radius = rotate * Mathf.Deg2Rad;
-		return new Vector3( distances[index]*Mathf.Cos(Index2Rad(index + urgStartStep)+radius )-distances[index]*Mathf.Sin(Index2Rad(index + urgStartStep)+radius ), 
-							distances[index]*Mathf.Sin(Index2Rad(index + urgStartStep)+radius )+distances[index]*Mathf.Cos(Index2Rad(index + urgStartStep)+radius ), 0);
+        float radius = rotate * Mathf.Deg2Rad;
+        return new Vector3(distances[index] * Mathf.Cos(Index2Rad(index + urgStartStep) + radius) - distances[index] * Mathf.Sin(Index2Rad(index + urgStartStep) + radius),
+                            distances[index] * Mathf.Sin(Index2Rad(index + urgStartStep) + radius) + distances[index] * Mathf.Cos(Index2Rad(index + urgStartStep) + radius), 0);
     }
 
     void CreateMesh()
@@ -328,12 +353,13 @@ public class Urg : MonoBehaviour
             //urgMesh.AddVertex(scale * Index2Position(i) + PosOffset);
             //urgMesh.AddUv(Camera.main.WorldToViewportPoint(scale * Index2Position(i) + PosOffset));
 
-			urgMesh.AddVertex( new Vector3(_scale.x*Index2Position(i).x + PosOffset.x,  _scale.y * Index2Position(i).y + PosOffset.y, 1) );
-			urgMesh.AddUv(cam.WorldToViewportPoint( new Vector3(_scale.x*Index2Position(i).x + PosOffset.x,  _scale.y * Index2Position(i).y + PosOffset.y, 1)));
+            urgMesh.AddVertex(new Vector3(_scale.x * Index2Position(i).x + PosOffset.x, _scale.y * Index2Position(i).y + PosOffset.y, 1));
+            urgMesh.AddUv(cam.WorldToViewportPoint(new Vector3(_scale.x * Index2Position(i).x + PosOffset.x, _scale.y * Index2Position(i).y + PosOffset.y, 1)));
         }
         for (int i = 0; i < distances.Length - 1; i++)
         {
             urgMesh.AddIndices(new int[] { 0, i + 1, i + 2 });
+
         }
     }
 
@@ -348,20 +374,22 @@ public class Urg : MonoBehaviour
     }
 
 
-	void Reset(){
-		Disconnect ();
-		urg.Close ();
+    void Reset()
+    {
+        Disconnect();
+        urg.Close();
 
 
-		init ();
-		Connect ();
-	}
+        init();
+        Connect();
+    }
 
 
-	IEnumerator ResetFuct(float delay){
-		yield return new WaitForSeconds (delay);
-		workOnce = false;
-	}
+    IEnumerator ResetFuct(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        workOnce = false;
+    }
 
     public void Connect()
     {
@@ -373,23 +401,27 @@ public class Urg : MonoBehaviour
         urg.Write(SCIP_library.SCIP_Writer.QT());
     }
 
-	void OnApplicationQuit(){
-	
-		if (main.Enable) {
-			urg.Write (SCIP_library.SCIP_Writer.QT ());
-			urg.Close ();
-		}
+    void OnApplicationQuit()
+    {
 
-	}
+        if (main.Enable)
+        {
+            urg.Write(SCIP_library.SCIP_Writer.QT());
+            urg.Close();
+        }
 
-	void OnDestroy(){
-		
-		if (main.Enable) {
-			urg.Write (SCIP_library.SCIP_Writer.QT ());
-			urg.Close ();
-		}
+    }
 
-	}
+    void OnDestroy()
+    {
+
+        if (main.Enable)
+        {
+            urg.Write(SCIP_library.SCIP_Writer.QT());
+            urg.Close();
+        }
+
+    }
 
 
 }

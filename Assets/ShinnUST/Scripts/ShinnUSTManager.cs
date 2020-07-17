@@ -424,7 +424,7 @@ public class ShinnUSTManager : MonoBehaviour {
         data.urgPosOffsety = 30.25f;
         data.urgScalex = .015f;
         data.urgScaley = .015f;
-        data.urgRotate = 19;
+        data.urgRotate = -50;
         //data.guiPos = 200;
         data.guiScale = 12;
 
