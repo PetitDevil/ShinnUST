@@ -597,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132025528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 7, z: -0.70000076}
+  m_LocalPosition: {x: 0, y: 0, z: -0.70000076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2000205378}
@@ -1124,8 +1124,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1500
   field of view: 60
-  orthographic: 0
-  orthographic size: 63.5
+  orthographic: 1
+  orthographic size: 45
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1927,7 +1927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1375015020
 Transform:
   m_ObjectHideFlags: 0
@@ -2729,6 +2729,7 @@ GameObject:
   - component: {fileID: 1893775533}
   - component: {fileID: 1893775534}
   - component: {fileID: 1893775535}
+  - component: {fileID: 1893775536}
   m_Layer: 0
   m_Name: toucharea
   m_TagString: Untagged
@@ -2745,8 +2746,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893775532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.099998474}
-  m_LocalScale: {x: 16, y: 9, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalScale: {x: 16, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 1420441931}
   m_RootOrder: 0
@@ -2811,8 +2812,23 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.12, y: 5.1200004, z: 0.2}
+  m_Size: {x: 5.12, y: 5.1200004, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1893775536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893775532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0e86df4ed38466cb16c5712cb38519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timersPerSecond: 30
+  shouldSend: 0
+  point: {x: 0, y: 0}
 --- !u!1 &2000205377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,7 +2885,7 @@ MonoBehaviour:
   distances: 
   UST_POS: {fileID: 40388050}
   main: {fileID: 40388054}
-  cam: {fileID: 37459299}
+  cam: {fileID: 805544414}
   type: 0
   RaycaseOffset: {x: 0, y: 0, z: 0}
   RaycastDebug: 1

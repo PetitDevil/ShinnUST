@@ -178,7 +178,6 @@ public class Urg : MonoBehaviour
             urgStartStep = _startstep;
             urgEndStep = _endstep;
 
-
             distances = new long[urgEndStep - urgStartStep + 1];
 
             meshFilter = GetComponent<MeshFilter>();
@@ -301,16 +300,34 @@ public class Urg : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 if (RaycastDebug)
-                    Debug.DrawLine(cam.transform.position, hit.transform.position, Color.red, .1f, true);
+                    // Debug.DrawLine(cam.transform.position, hit.transform.position, Color.red, .1f, true);
 
-                if (hit.collider.gameObject.transform.tag == "trigger")
-                    hit.transform.gameObject.SendMessage("CubeStart");
+                    if (RaycastDebug)
+                    {
+                        var go = new Vector3(_screenPos.x, _screenPos.y, 0);
+                        Debug.DrawLine(cam.transform.position, go, Color.red, .1f, true);
+                    }
 
-                // if (hit.collider.gameObject.name == "toucharea")
-                // {
-                //     Debug.Log("touch point: " + _screenPos);
-                // }
+                // if (hit.collider.gameObject.transform.tag == "trigger")
+                //     hit.transform.gameObject.SendMessage("CubeStart");
 
+                if (hit.collider.gameObject.name == "toucharea")
+                {
+                    //Debug.Log("hit point: "+ hit.point);
+                    //Change point in TouchEvent
+                    var go = ShinnUSTManager.touchArea_value;
+                    var x = (hit.point.x - go.x) / (go.y - go.x);
+                    var y = (hit.point.y - go.z) / (go.w - go.z);
+                    // hit.collider.gameObject.GetComponent<TouchEvent>().point = new Vector2(hit.point.x, hit.point.y);
+                    hit.collider.gameObject.GetComponent<TouchEvent>().point = new Vector2(x, y);
+                    // hit.collider.gameObject.GetComponent<TouchEvent>().point = new Vector2(DetectSolution[i].x, DetectSolution[i].y);
+                    hit.collider.gameObject.GetComponent<TouchEvent>().shouldSend = true;
+                }
+
+            }
+            else
+            {
+                //Reset point 
             }
         }
         DetectSolution.Clear();
