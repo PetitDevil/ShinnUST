@@ -31,3 +31,8 @@ https://github.com/obushi/ProceduralWaterfall
 
 Reference from  
 https://www.hokuyo-aut.jp/  
+
+## Radar info
+ip：10.0.0.172
+mask: 255.255.255.0
+gateway: 10.0.0.10

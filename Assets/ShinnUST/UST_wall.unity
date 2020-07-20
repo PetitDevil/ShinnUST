@@ -312,7 +312,7 @@ MonoBehaviour:
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 3}
     m_FontSize: 12
     m_FontStyle: 0
     m_Alignment: 0
@@ -2826,6 +2826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0e86df4ed38466cb16c5712cb38519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wsClient: {fileID: 2000205377}
   timersPerSecond: 30
   shouldSend: 0
   point: {x: 0, y: 0}
@@ -2842,6 +2843,8 @@ GameObject:
   - component: {fileID: 2000205381}
   - component: {fileID: 2000205380}
   - component: {fileID: 2000205379}
+  - component: {fileID: 2000205383}
+  - component: {fileID: 2000205382}
   m_Layer: 0
   m_Name: URGRender
   m_TagString: Untagged
@@ -2877,7 +2880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613344ddb1d847b4d9a79a35d40cf28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ipAddress: 192.168.0.10
+  ipAddress: 10.0.0.172
   portNumber: 10940
   portName: COM3
   baudRate: 115200
@@ -2936,6 +2939,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000205377}
   m_Mesh: {fileID: 0}
+--- !u!114 &2000205382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000205377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55bb5e8d4e0040dbba05ad2e09563e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isloaded: 0
+--- !u!114 &2000205383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000205377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74d748d180574060b36a61af764228d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wsAddress: 
+  pos: 0
 --- !u!1 &2004927109
 GameObject:
   m_ObjectHideFlags: 0

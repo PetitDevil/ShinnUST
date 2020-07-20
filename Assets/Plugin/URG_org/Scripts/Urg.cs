@@ -53,7 +53,8 @@ public class Urg : MonoBehaviour
     URGDevice urg;
 
     [SerializeField]
-    string ipAddress = "192.168.0.10";
+    //string ipAddress = "192.168.0.10";
+    string ipAddress = "10.0.0.172";
 
     [SerializeField]
     int portNumber = 10940;
