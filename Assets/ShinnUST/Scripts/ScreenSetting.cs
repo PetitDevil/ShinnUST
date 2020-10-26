@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScreenSetting : MonoBehaviour
 {
 
-    public Vector2 ScreenResolution = new Vector2(1920, 1200);
+    public Vector2 ScreenResolution = new Vector2(3000, 1200);
     public bool Enable = false;
     public bool FullScreen = true;
     public bool FiToScreen = false;

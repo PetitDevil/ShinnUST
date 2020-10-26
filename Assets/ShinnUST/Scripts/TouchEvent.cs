@@ -25,9 +25,9 @@ public class TouchEvent : MonoBehaviour
             //send point to frontend
             if (shouldSend)
             {
-                Debug.Log("point: " + point.x * 1920 + "," + point.y * 1200);
+                Debug.Log("point: " + point.x * 3000 + "," + point.y * 1200);
                 shouldSend = false;
-                point.x *= 1920;
+                point.x *= 3000;
                 point.y *= 1200;
             }
             else
